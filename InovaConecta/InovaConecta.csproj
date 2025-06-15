@@ -62,7 +62,7 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>img\66965483_640x640.ico</ApplicationIcon>
+    <ApplicationIcon>img\Logo-InovaConecta.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -136,6 +136,9 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="img\66965483_640x640.ico" />
+    <Content Include="img\Informe.png" />
+    <Content Include="img\InovaFarma.png" />
+    <Content Include="img\Logo-InovaConecta.ico" />
     <Content Include="img\olhos-cruzados.png" />
     <None Include="Resources\olhos-cruzados.png" />
   </ItemGroup>

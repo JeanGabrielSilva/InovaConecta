@@ -89,7 +89,6 @@ namespace InovaConecta {
             this.dataGridBancos.Name = "dataGridBancos";
             this.dataGridBancos.Size = new System.Drawing.Size(594, 204);
             this.dataGridBancos.TabIndex = 0;
-            this.dataGridBancos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridBancos_CellClick);
             // 
             // lblObservacao
             // 
@@ -120,7 +119,7 @@ namespace InovaConecta {
             this.txtObservacao.Size = new System.Drawing.Size(594, 73);
             this.txtObservacao.TabIndex = 3;
             this.txtObservacao.Text = "";
-            this.txtObservacao.TextChanged += new System.EventHandler(this.txtObservacao_TextChanged_1);
+            this.txtObservacao.TextChanged += new System.EventHandler(this.txtObservacao_TextChanged);
             // 
             // txtTitulo
             // 
@@ -152,7 +151,6 @@ namespace InovaConecta {
             this.txtUsuarioInstancia.Size = new System.Drawing.Size(341, 27);
             this.txtUsuarioInstancia.TabIndex = 2;
             this.txtUsuarioInstancia.Text = "Digite o usuário";
-            this.txtUsuarioInstancia.TextChanged += new System.EventHandler(this.txtUsuarioInstancia_TextChanged);
             // 
             // txtSenhaInstancia
             // 
@@ -238,7 +236,6 @@ namespace InovaConecta {
             this.cmbInstancia.Name = "cmbInstancia";
             this.cmbInstancia.Size = new System.Drawing.Size(203, 28);
             this.cmbInstancia.TabIndex = 11;
-            this.cmbInstancia.SelectedIndexChanged += new System.EventHandler(this.cmbInstancia_SelectedIndexChanged);
             // 
             // labelConectaAlterado
             // 
@@ -249,7 +246,6 @@ namespace InovaConecta {
             this.labelConectaAlterado.TabIndex = 12;
             this.labelConectaAlterado.Text = "Conecta log criado para o banco:\r\n{bancoSelecionado}";
             this.labelConectaAlterado.Visible = false;
-            this.labelConectaAlterado.Click += new System.EventHandler(this.labelConectaAlterado_Click);
             // 
             // panel1
             // 
@@ -266,7 +262,6 @@ namespace InovaConecta {
             this.panel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 14F));
             this.panel1.Size = new System.Drawing.Size(1008, 111);
             this.panel1.TabIndex = 13;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // panel2
             // 
@@ -294,7 +289,6 @@ namespace InovaConecta {
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(970, 91);
             this.tableLayoutPanel3.TabIndex = 0;
-            this.tableLayoutPanel3.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel3_Paint);
             // 
             // tableLayoutPanel4
             // 
@@ -423,7 +417,6 @@ namespace InovaConecta {
             this.lblDetalhesBanco.Size = new System.Drawing.Size(332, 22);
             this.lblDetalhesBanco.TabIndex = 14;
             this.lblDetalhesBanco.Text = "DETALHES DO BANCO DE DADOS";
-            this.lblDetalhesBanco.Click += new System.EventHandler(this.lblDetalhesBanco_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -475,7 +468,6 @@ namespace InovaConecta {
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(924, 30);
             this.panel8.TabIndex = 0;
-            this.panel8.Paint += new System.Windows.Forms.PaintEventHandler(this.panel8_Paint);
             // 
             // label1
             // 
@@ -488,7 +480,6 @@ namespace InovaConecta {
             this.label1.TabIndex = 13;
             this.label1.Text = "Conecta trocado com sucesso";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // panel9
             // 
@@ -507,7 +498,6 @@ namespace InovaConecta {
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(34, 30);
             this.label2.TabIndex = 1;
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // NotifyIcon
             // 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
@@ -7,7 +7,6 @@ namespace InovaConecta {
     internal static class Program {
         private static Mutex mutex = new Mutex(true, "InovaConecta_UniqueMutexName");
 
-        // Importar funções do Windows para ativar janela
         [DllImport("user32.dll")]
         private static extern bool SetForegroundWindow(IntPtr hWnd);
 
@@ -22,15 +21,14 @@ namespace InovaConecta {
         [STAThread]
         static void Main() {
             if (!mutex.WaitOne(TimeSpan.Zero, true)) {
-                // Procura a janela pelo título do seu Form (ajuste para o título correto da sua janela)
                 IntPtr hWnd = FindWindow(null, "InovaConecta");
 
                 if (hWnd != IntPtr.Zero) {
-                    ShowWindow(hWnd, SW_RESTORE);   // Restaura a janela se estiver minimizada
-                    SetForegroundWindow(hWnd);      // Traz a janela para frente
+                    ShowWindow(hWnd, SW_RESTORE);
+                    SetForegroundWindow(hWnd);
                 }
 
-                return; // Sai da segunda instância
+                return;
             }
 
             Application.EnableVisualStyles();

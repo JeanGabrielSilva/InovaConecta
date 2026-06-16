@@ -152,7 +152,7 @@ namespace InovaConecta {
             }
         }
 
-        private async void btnBuscarBanco_Click(object sender, EventArgs e) {
+        private void btnBuscarBanco_Click(object sender, EventArgs e) {
             string instancia = cmbInstancia.SelectedItem?.ToString();
             string usuario = txtUsuarioInstancia.Text;
             string senha = txtSenhaInstancia.Text;
@@ -164,21 +164,18 @@ namespace InovaConecta {
 
             btnBuscarBanco.Enabled = false;
 
-            while (true) {
-                try {
-                    DataTable dt = await Task.Run(() => BuscarBancosDaInstancia(instancia, usuario, senha));
-                    AplicarResultadoBancosNaUI(dt, instancia, usuario, senha);
-                    break;
-                } catch (Exception ex) {
-                    btnBuscarBanco.Enabled = true;
-                    var resultado = MessageBox.Show(
-                        "Erro ao buscar bancos de dados:\n" + ex.Message + "\n\nDeseja tentar novamente?",
-                        "Erro de Conexão",
-                        MessageBoxButtons.RetryCancel,
-                        MessageBoxIcon.Error);
-                    if (resultado != DialogResult.Retry) break;
+            try {
+                DataTable dt = BuscarBancosDaInstancia(instancia, usuario, senha);
+                AplicarResultadoBancosNaUI(dt, instancia, usuario, senha);
+            } catch (Exception ex) {
+                btnBuscarBanco.Enabled = true;
+                var resultado = MessageBox.Show(
+                    "Erro ao buscar bancos de dados:\n" + ex.Message + "\n\nDeseja tentar novamente?",
+                    "Erro de Conexão",
+                    MessageBoxButtons.RetryCancel,
+                    MessageBoxIcon.Error);
+                if (resultado != DialogResult.Retry)
                     btnBuscarBanco.Enabled = false;
-                }
             }
 
             btnBuscarBanco.Enabled = true;

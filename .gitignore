@@ -361,3 +361,8 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# InovaConecta — dados locais do usuário (contém instância/usuário/senha)
+# NUNCA commitar nem empacotar no instalador
+config.json
+bancos_titulos.json

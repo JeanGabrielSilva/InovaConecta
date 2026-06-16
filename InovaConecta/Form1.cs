@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Sql;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Drawing;
@@ -488,6 +489,69 @@ namespace InovaConecta {
 
             if (cmbInstancia.Items.Count > 0)
                 cmbInstancia.SelectedIndex = 0;
+
+            BuscarInstanciasRedeEmSegundoPlano();
+        }
+
+        private void BuscarInstanciasRedeEmSegundoPlano() {
+            Task.Run(() => {
+                List<string> encontradas = null;
+                try {
+                    var buscaTask = Task.Run(() => {
+                        try {
+                            return SqlDataSourceEnumerator.Instance.GetDataSources();
+                        } catch {
+                            return null;
+                        }
+                    });
+
+                    if (!buscaTask.Wait(TimeSpan.FromSeconds(5)))
+                        return;
+
+                    var dt = buscaTask.Result;
+                    if (dt == null) return;
+
+                    encontradas = new List<string>();
+                    foreach (DataRow row in dt.Rows) {
+                        string servidor = row["ServerName"]?.ToString() ?? "";
+                        string instancia = row["InstanceName"]?.ToString() ?? "";
+                        if (string.IsNullOrWhiteSpace(servidor)) continue;
+
+                        string nome = string.IsNullOrWhiteSpace(instancia)
+                            ? servidor
+                            : servidor + "\\" + instancia;
+
+                        encontradas.Add(nome);
+                    }
+                } catch {
+                    return;
+                }
+
+                if (encontradas == null || encontradas.Count == 0) return;
+
+                try {
+                    if (IsDisposed || Disposing) return;
+                    if (!IsHandleCreated) return;
+
+                    BeginInvoke(new Action(() => {
+                        try {
+                            if (IsDisposed || cmbInstancia.IsDisposed) return;
+
+                            foreach (var inst in encontradas) {
+                                bool jaExiste = false;
+                                foreach (var item in cmbInstancia.Items) {
+                                    if (string.Equals(item?.ToString(), inst, StringComparison.OrdinalIgnoreCase)) {
+                                        jaExiste = true;
+                                        break;
+                                    }
+                                }
+                                if (!jaExiste)
+                                    cmbInstancia.Items.Add(inst);
+                            }
+                        } catch { }
+                    }));
+                } catch { }
+            });
         }
 
         private List<string> CarregarInstanciasSalvas() {

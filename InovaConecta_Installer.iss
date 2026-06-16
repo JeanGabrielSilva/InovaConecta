@@ -12,8 +12,14 @@ AppPublisher={#AppPublisher}
 DefaultDirName={autopf}\{#AppName}
 DefaultGroupName={#AppName}
 OutputDir=Installer
-OutputBaseFilename=InovaConecta_Setup
+OutputBaseFilename=InovaConecta_Setup_{#AppVersion}
 SetupIconFile=C:\Users\jeang\source\repos\JeanGabrielSilva\InovaConecta-master\InovaConecta\img\Logo-InovaConecta.ico
+; Ícone que aparece no Painel de Controle > Programas e Recursos
+UninstallDisplayIcon={app}\img\Logo-InovaConecta.ico
+UninstallDisplayName={#AppName}
+VersionInfoVersion={#AppVersion}
+VersionInfoCompany={#AppPublisher}
+VersionInfoProductName={#AppName}
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -33,9 +39,10 @@ Source: "{#SourceDir}\InovaConecta.exe";        DestDir: "{app}"; Flags: ignorev
 Source: "{#SourceDir}\InovaConecta.exe.config"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#SourceDir}\Newtonsoft.Json.dll";     DestDir: "{app}"; Flags: ignoreversion
 
-; Arquivos de dados (preserva se já existir para não apagar dados do usuário)
-Source: "{#SourceDir}\config.json";             DestDir: "{app}"; Flags: ignoreversion onlyifdoesntexist
-Source: "{#SourceDir}\bancos_titulos.json";     DestDir: "{app}"; Flags: ignoreversion onlyifdoesntexist
+; NOTA: config.json e bancos_titulos.json NÃO são empacotados de propósito.
+; O app cria esses arquivos automaticamente em runtime quando o usuário
+; configura a instância. Empacotá-los espalharia dados/senhas do dev
+; pra todas as máquinas instaladas (já aconteceu — não fazer).
 
 ; Imagens e ícones
 Source: "InovaConecta\img\*"; DestDir: "{app}\img"; Flags: ignoreversion recursesubdirs

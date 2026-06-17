@@ -366,3 +366,6 @@ FodyWeavers.xsd
 # NUNCA commitar nem empacotar no instalador
 config.json
 bancos_titulos.json
+
+# Vercel CLI — pasta gerada pelo `vercel link`
+.vercel

@@ -324,15 +324,7 @@ namespace InovaConecta {
 
         private void SaveConfig() {
             try {
-                string instanciaAtual = cmbInstancia.SelectedItem?.ToString() ?? "";
-
-                var instancias = CarregarInstanciasSalvas();
-                if (!string.IsNullOrEmpty(instanciaAtual) && !instancias.Contains(instanciaAtual))
-                    instancias.Add(instanciaAtual);
-
                 var config = new {
-                    Instancia = instanciaAtual,
-                    Instancias = instancias,
                     Usuario = txtUsuarioInstancia.Text,
                     Senha = txtSenhaInstancia.Text
                 };
@@ -347,12 +339,6 @@ namespace InovaConecta {
             if (File.Exists(configFile)) {
                 try {
                     var config = JsonConvert.DeserializeObject<dynamic>(File.ReadAllText(configFile));
-                    string instanciaSalva = config?.Instancia ?? "";
-
-                    if (!string.IsNullOrEmpty(instanciaSalva) && cmbInstancia.Items.Contains(instanciaSalva)) {
-                        cmbInstancia.SelectedItem = instanciaSalva;
-                    }
-
                     txtUsuarioInstancia.Text = config?.Usuario ?? "";
                     txtSenhaInstancia.Text = config?.Senha ?? "";
                 } catch (Exception ex) {
@@ -478,13 +464,7 @@ namespace InovaConecta {
         private void CarregarInstanciasSQLAsync() {
             cmbInstancia.Items.Clear();
 
-            var todas = new List<string>(ObterInstanciasLocais());
-
-            foreach (var inst in CarregarInstanciasSalvas())
-                if (!todas.Contains(inst))
-                    todas.Add(inst);
-
-            foreach (var inst in todas)
+            foreach (var inst in ObterInstanciasLocais())
                 cmbInstancia.Items.Add(inst);
 
             if (cmbInstancia.Items.Count > 0)
@@ -552,23 +532,6 @@ namespace InovaConecta {
                     }));
                 } catch { }
             });
-        }
-
-        private List<string> CarregarInstanciasSalvas() {
-            try {
-                if (File.Exists(configFile)) {
-                    var json = File.ReadAllText(configFile);
-                    var config = JsonConvert.DeserializeObject<dynamic>(json);
-
-                    if (config?.Instancias != null)
-                        return JsonConvert.DeserializeObject<List<string>>(config.Instancias.ToString()) ?? new List<string>();
-
-                    string instAntiga = config?.Instancia ?? "";
-                    if (!string.IsNullOrEmpty(instAntiga))
-                        return new List<string> { instAntiga };
-                }
-            } catch { }
-            return new List<string>();
         }
 
         private List<string> ObterInstanciasLocais() {
